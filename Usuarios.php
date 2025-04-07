@@ -29,5 +29,15 @@ class Usuario {
             echo "ID: {$fila['id']} | $nombre | Edad: $edad | Tel: {$fila['telefono']}\n";
         }
     }
+    
+    public function actualizar($id, $telefono, $correo, $direccion) {
+        $sql = "UPDATE usuarios SET telefono='$telefono', correo='$correo', direccion='$direccion' WHERE id=$id";
+
+        if ($this->db->query($sql)) {
+            echo "Usuario actualizado.\n";
+        } else {
+            echo "Error al actualizar.\n";
+        }
+    }
 }
 ?>
