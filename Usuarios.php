@@ -39,5 +39,14 @@ class Usuario {
             echo "Error al actualizar.\n";
         }
     }
+    public function eliminar($id) {
+        $sql = "DELETE FROM usuarios WHERE id=$id";
+
+        if ($this->db->query($sql)) {
+            echo "Usuario eliminado.\n";
+        } else {
+            echo "Error al eliminar.\n";
+        }
+    }
 }
 ?>
