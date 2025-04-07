@@ -1,0 +1,33 @@
+<?php
+include_once 'database.php';
+
+class Usuario {
+    private $db;
+
+    public function __construct() {
+        $conexion = new Database();
+        $this->db = $conexion->conectar();
+    }
+
+    public function crear($nombre, $apellido, $fecha, $telefono, $correo, $direccion) {
+        $sql = "INSERT INTO usuarios (nombre, apellido, fecha_nacimiento, telefono, correo, direccion)
+                VALUES ('$nombre', '$apellido', '$fecha', '$telefono', '$correo', '$direccion')";
+
+        if ($this->db->query($sql)) {
+            echo "Usuario guardado.\n";
+        } else {
+            echo "Error al guardar usuario.\n";
+        }
+    }
+
+    public function listar() {
+        $resultado = $this->db->query("SELECT * FROM usuarios");
+
+        while ($fila = $resultado->fetch_assoc()) {
+            $nombre = $fila['nombre'] . ' ' . $fila['apellido'];
+            $edad = $this->edad($fila['fecha_nacimiento']);
+            echo "ID: {$fila['id']} | $nombre | Edad: $edad | Tel: {$fila['telefono']}\n";
+        }
+    }
+}
+?>
